@@ -5,31 +5,22 @@ services:
   # create item db container that contain mongodb image version 3 with restart policy always
   item-db:
     image: mongo:3
-    restart: always
-    # change name container
-    container_name: item-db
-    # define volume for mongodb database 
+    restart: always # change name container
+    container_name: item-db # define volume for mongodb database 
     volumes:
-      - app-db:/data/db
-    # define network item-db
+      - app-db:/data/db # define network item-db
     networks:
-      - app-network
-  # create item app container with item-app image that pull from github package with restart policy always
+      - app-network  # create item app container with item-app image that pull from github package with restart policy always
   item-app:
     image: ghcr.io/voldatron/item-app:v1
-    restart: always
-    # change name container
-    container_name: item-app
-    # make sure item-db container run before item-app container run
+    restart: always # change name container
+    container_name: item-app # make sure item-db container run before item-app container run
     depends_on:
-      - item-db
-    # define network used for running this container
+      - item-db # define network used for running this container
     networks:
-      - app-network
-    # change port 8080 to 80
+      - app-network # change port 8080 to 80
     ports:
-      - 80:8080
-#create volume app db
+      - 80:8080 #create volume app db
 volumes:
  app-db:
 # create network app-network 
